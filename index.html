@@ -1,0 +1,810 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HighFive Advisory | Revenue by Design™ Diagnostic</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #dbe3ef;
+      --dark: #111827;
+      --accent: #3BB3E0;
+      --accent-light: #e0f6ff;
+      --accent-border: #a8ddf5;
+      --green-bg: #dcfce7;
+      --green-text: #166534;
+      --yellow-bg: #fef9c3;
+      --yellow-text: #854d0e;
+      --orange-bg: #ffedd5;
+      --orange-text: #9a3412;
+      --red-bg: #fee2e2;
+      --red-text: #991b1b;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px; }
+    .hero { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; background: var(--card); border-radius: 22px; padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px; }
+    .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--accent); margin: 0 0 8px; }
+    h1 { font-size: 30px; line-height: 1.15; margin: 0; }
+    .intro { max-width: 680px; color: var(--muted); font-size: 15px; line-height: 1.6; margin: 10px 0 0; }
+    .respondent-block { min-width: 300px; }
+    label { display: block; font-size: 14px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+    input[type="text"] { width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; font-size: 15px; outline: none; margin-bottom: 10px; }
+    input[type="text"]:focus { border-color: var(--accent); }
+    .layout { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+
+    /* Pillar sections */
+    .pillar-block { margin-bottom: 32px; }
+    .pillar-header { background: var(--dark); color: #fff; border-radius: 18px 18px 0 0; padding: 20px 24px; }
+    .pillar-header h2 { margin: 0 0 4px; font-size: 20px; }
+    .pillar-header p { margin: 0; opacity: 0.72; font-size: 14px; }
+    .component-block { margin: 0; }
+    .component-header { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 0; }
+    .component-header h3 { margin: 0; font-size: 16px; font-weight: 800; color: var(--dark); }
+    .question-card { background: var(--card); border: 1px solid var(--border); border-top: none; padding: 22px; }
+    .question-card:last-child { border-radius: 0 0 18px 18px; }
+    .question-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+    .q-number { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex: 0 0 auto; }
+    .question-title { font-size: 16px; font-weight: 800; margin: 0 0 4px; line-height: 1.4; }
+    .question-sub { color: var(--muted); font-size: 13px; margin: 0; line-height: 1.5; }
+    .options-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .option-btn { border: 1px solid var(--border); background: #fff; border-radius: 14px; padding: 12px 10px; cursor: pointer; text-align: center; transition: 0.15s ease; font-size: 13px; color: var(--text); line-height: 1.4; }
+    .option-btn .opt-score { display: block; font-size: 11px; font-weight: 800; color: var(--muted); margin-bottom: 4px; }
+    .option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+    .option-btn.selected { background: var(--dark); color: #fff; border-color: var(--dark); }
+    .option-btn.selected .opt-score { color: rgba(255,255,255,0.65); }
+
+    /* Seams section */
+    .seams-block { margin-bottom: 32px; }
+    .seams-header { background: #334155; color: #fff; border-radius: 18px 18px 0 0; padding: 20px 24px; }
+    .seams-header h2 { margin: 0 0 4px; font-size: 20px; }
+    .seams-header p { margin: 0; opacity: 0.72; font-size: 14px; }
+    .seams-question { background: var(--card); border: 1px solid var(--border); border-top: none; padding: 22px; }
+    .seams-question:last-child { border-radius: 0 0 18px 18px; }
+
+    /* Score sidebar */
+    .score-card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); padding: 24px; position: sticky; top: 20px; }
+    .score-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; font-weight: 800; margin: 0 0 6px; }
+    .score-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; }
+    .score-number { font-size: 48px; font-weight: 900; line-height: 1; }
+    .max-score { color: var(--muted); font-weight: 700; font-size: 15px; }
+    .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.25s ease; }
+    .completion { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+
+    /* Pillar scores */
+    .pillar-scores { margin-bottom: 16px; }
+    .pillar-scores h4 { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 8px; }
+    .pillar-score-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .pillar-score-row:last-child { border-bottom: none; }
+    .pillar-score-name { color: var(--text); font-weight: 600; }
+    .pillar-score-val { font-weight: 800; color: var(--accent); }
+
+    .recommendation { border-radius: 14px; padding: 14px; margin-bottom: 14px; border: 1px solid transparent; }
+    .recommendation h2 { margin: 0 0 6px; font-size: 18px; }
+    .recommendation p { margin: 0; line-height: 1.5; font-size: 13px; }
+    .band-by-design { background: var(--green-bg); color: var(--green-text); border-color: #86efac; }
+    .band-scalable { background: var(--accent-light); color: #0c4a6e; border-color: var(--accent-border); }
+    .band-effort { background: var(--yellow-bg); color: var(--yellow-text); border-color: #fde68a; }
+    .band-risk { background: var(--red-bg); color: var(--red-text); border-color: #fecaca; }
+
+    .thresholds { border-radius: 14px; background: #f8fafc; padding: 14px; margin-bottom: 14px; border: 1px solid #e2e8f0; }
+    .thresholds h3 { margin: 0 0 8px; font-size: 14px; }
+    .thresholds p { margin: 4px 0; color: #475569; font-size: 13px; }
+
+    .reset-button, .pdf-button { width: 100%; border: 1px solid var(--border); background: #ffffff; border-radius: 14px; padding: 12px 16px; font-size: 14px; font-weight: 800; cursor: pointer; color: var(--text); display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .reset-button { margin-bottom: 10px; }
+    .reset-button:hover { border-color: #64748b; background: #f8fafc; }
+    .pdf-button { margin-bottom: 10px; border-color: var(--accent-border); background: var(--accent-light); color: #0c4a6e; }
+    .pdf-button:hover { border-color: var(--accent); }
+
+    /* Score overview section */
+    .score-overview { background: var(--card); border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); padding: 28px; margin-top: 28px; }
+    .score-overview h2 { margin: 0 0 6px; font-size: 22px; }
+    .score-overview .sub { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+    .bands-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .band-card { border-radius: 16px; padding: 18px; border: 1px solid transparent; }
+    .band-card h3 { margin: 0 0 4px; font-size: 15px; }
+    .band-card .range { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 10px; opacity: 0.7; }
+    .band-card p { margin: 0; font-size: 13px; line-height: 1.55; }
+
+    @media print {
+      body { background: #fff; }
+      .score-card { position: static; }
+      .reset-button, .pdf-button, .unlock-section, .unlock-overlay { display: none !important; }
+      .layout { display: block; }
+      .score-card { margin-top: 24px; }
+      .container { padding: 16px; }
+      .question-card, .seams-question, .score-card, .hero, .score-overview { box-shadow: none; border: 1px solid #dbe3ef; }
+    }
+    @media (max-width: 1000px) {
+      .layout { grid-template-columns: 1fr; display: block; }
+      .score-card { position: static; margin-top: 20px; }
+      .bands-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { padding: 16px; }
+      .options-5 { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 24px; }
+      .bands-grid { grid-template-columns: 1fr; }
+      .hero { display: block; }
+      .respondent-block { margin-top: 20px; }
+    }
+
+    input[type="email"] { width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; font-size: 15px; outline: none; margin-bottom: 10px; }
+    input[type="email"]:focus { border-color: var(--accent); }
+    .email-button { width: 100%; border: 1px solid #a7f3d0; background: #ecfdf5; color: #065f46; border-radius: 14px; padding: 12px 16px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+    .email-button:hover { border-color: #6ee7b7; background: #d1fae5; }
+    .email-panel { display: none; background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+    .email-panel.open { display: block; }
+    .email-panel label { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+    .email-send-btn { width: 100%; margin-top: 4px; border: none; background: var(--dark); color: #fff; border-radius: 14px; padding: 12px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
+    .email-send-btn:hover { background: #1e293b; }
+    .email-note { font-size: 12px; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+  </style>
+</head>
+<body>
+<main class="container">
+
+  <section class="hero">
+    <div>
+      <img src="data:image/jpeg;base64,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" alt="HighFive Advisory" style="height:68px; margin-bottom:12px; display:block; border-radius:6px;">
+      <p class="eyebrow">Revenue by Design™</p>
+      <h1>HighFive Advisory | Revenue by Design™ Diagnostic</h1>
+      <p class="intro">Score your B2B revenue function across nine components in three pillars. Each question uses a 1–5 maturity scale. Scores roll up to a composite RBD Index out of 100. Use this with your leadership team to identify friction points, growth unlocks, and performance gaps.</p>
+    </div>
+    <div class="respondent-block">
+      <label for="companyName">Company Name</label>
+      <input id="companyName" type="text" placeholder="Enter company name" />
+      <label for="respondentName">Respondent Name</label>
+      <input id="respondentName" type="text" placeholder="Your name" />
+    </div>
+  </section>
+
+  <section class="layout">
+    <div id="questions"></div>
+
+    <aside class="score-card">
+      <p class="score-label">RBD Index</p>
+      <div class="score-row">
+        <span class="score-number" id="scoreDisplay">-</span>
+        <span class="max-score">/ 100</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="completion" id="completion">0 of 30 questions answered</p>
+
+      <div class="pillar-scores">
+        <h4>Pillar Scores</h4>
+        <div class="pillar-score-row"><span class="pillar-score-name">Planning</span><span class="pillar-score-val" id="pPlanning">-</span></div>
+        <div class="pillar-score-row"><span class="pillar-score-name">Productivity</span><span class="pillar-score-val" id="pProductivity">-</span></div>
+        <div class="pillar-score-row"><span class="pillar-score-name">Predictability</span><span class="pillar-score-val" id="pPredictability">-</span></div>
+        <div class="pillar-score-row"><span class="pillar-score-name">The Seams</span><span class="pillar-score-val" id="pSeams">-</span></div>
+      </div>
+
+      <div class="recommendation band-risk" id="recommendationBox">
+        <h2 id="recTitle">Revenue at Risk</h2>
+        <p id="recSummary">Complete the diagnostic to see your score and recommendation.</p>
+      </div>
+
+      <div class="thresholds">
+        <h3>RBD Index Bands</h3>
+        <p><strong>85–100:</strong> By Design</p>
+        <p><strong>70–84:</strong> Scalable</p>
+        <p><strong>50–69:</strong> Built on Effort</p>
+        <p><strong>Under 50:</strong> Revenue at Risk</p>
+      </div>
+
+      <button class="reset-button" id="resetButton">&#8634; Reset diagnostic</button>
+      <button class="pdf-button" id="pdfButton">&#11015; Download results as PDF</button>
+        <button class="email-button" id="emailToggleBtn">&#9993; Email Results</button>
+        <div class="email-panel" id="emailPanel">
+          <label for="emailInput">Recipient email address</label>
+          <input type="email" id="emailInput" placeholder="name@company.com" />
+          <button class="email-send-btn" id="emailSendBtn">Send results</button>
+          <p class="email-note">This will open your default email client with a pre-filled summary of the diagnostic results.</p>
+        </div>
+    </aside>
+  </section>
+
+  <section class="score-overview">
+    <h2>Overall Score Categories</h2>
+    <p class="sub">The RBD Index maps your answers to one of four maturity bands, each signalling a different strategic priority.</p>
+    <div class="bands-grid">
+      <div class="band-card band-by-design">
+        <div class="range">85 – 100</div>
+        <h3>By Design</h3>
+        <p>Your revenue system is repeatable and predictable. Growth is no longer dependent on heroics or top performers. The priority shifts to optimization, expansion into new segments, and staying ahead of the market through continuous improvement.</p>
+      </div>
+      <div class="band-card band-scalable">
+        <div class="range">70 – 84</div>
+        <h3>Scalable</h3>
+        <p>A working revenue engine exists with specific, identifiable leaks. You have the foundation to scale, but targeted fixes - in process consistency, coaching cadence, or CRM discipline - will unlock fast and measurable returns without adding cost.</p>
+      </div>
+      <div class="band-card band-effort">
+        <div class="range">50 – 69</div>
+        <h3>Built on Effort</h3>
+        <p>The elements of a revenue system exist but are not fully connected. Growth is happening through individual effort rather than a shared process. The biggest lever is integrating your people, process and technology so that success is repeatable and not person-dependent.</p>
+      </div>
+      <div class="band-card band-risk">
+        <div class="range">Under 50</div>
+        <h3>Revenue at Risk</h3>
+        <p>Growth depends on heroics and a small number of key individuals. The foundation needs to be established before adding headcount or marketing spend. Prioritize the lowest-scoring pillar first - that is the binding constraint on everything else.</p>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+const ACCESS_CODE = "Go2026";
+let unlocked = false;
+
+const PILLARS = [
+  {
+    id: "planning",
+    name: "Pillar 1: Planning",
+    subtitle: "Where You Win",
+    description: "Planning tests whether growth comes from a designed revenue model or from improvisation.",
+    components: [
+      {
+        name: "GTM Strategy & Components",
+        questions: [
+          {
+            id: 1,
+            text: "Is our Ideal Customer Profile (ICP) precisely defined and validated against our best customers?",
+            sub: "Growth · Process",
+            score1: "The ICP is vague or describes anyone who will buy. Leaders define it differently.",
+            score5: "A tiered ICP built on firmographics, buying triggers and buyer personas. Validated against win rate, deal size, sales cycle and retention. Used to decline poor-fit opportunities."
+          },
+          {
+            id: 2,
+            text: "Does our value proposition address buyer priorities and give customers a clear, differentiated reason to choose us?",
+            sub: "Performance · People",
+            score1: "Feature-led pitch. Each salesperson tells a different story. Discounting is the main way to win.",
+            score5: "One messaging framework per buyer persona: problem, business outcome, differentiator, quantified proof. Used consistently by marketing and sales."
+          },
+          {
+            id: 3,
+            text: "Do we have a clear, measurable revenue plan showing where future revenue will come from across new customers, existing customers, products, target segments and pipeline sources?",
+            sub: "Missing · Process",
+            score1: "The revenue target is set top-down, with no build behind it and no view of the mix.",
+            score5: "A bottom-up revenue plan by source of growth, with unit economics (CAC, LTV, payback) for each. Reviewed quarterly."
+          }
+        ]
+      },
+      {
+        name: "Market Prioritization",
+        questions: [
+          {
+            id: 4,
+            text: "Are we deliberately prioritizing the target segments with the greatest revenue and profit potential, with explicit decisions on where to stop investing?",
+            sub: "Growth · Process",
+            score1: "Every segment is a priority. Opportunistic wins pull resources into new segments.",
+            score5: "Target segments ranked by revenue potential, margin, win rate and competitive position. At least one documented 'stop' decision in the past year."
+          },
+          {
+            id: 5,
+            text: "Do we know which pipeline sources produce the best return, and do we invest accordingly?",
+            sub: "Growth · Technology",
+            score1: "One dominant pipeline source, often the founder's network or referrals. No attribution.",
+            score5: "A pipeline target for each source, tracked monthly. Conversion and cost per source known. Budget moves toward the best returns."
+          },
+          {
+            id: 6,
+            text: "Are marketing and sales jointly focused on generating demand from our ICP and target segments?",
+            sub: "Friction · Process",
+            score1: "Marketing and sales run separate plans. Most new pipeline comes from outside the ICP.",
+            score5: "One joint demand plan by target segment and ICP tier. Most new pipeline fits the ICP."
+          }
+        ]
+      },
+      {
+        name: "Optimized Sales Coverage",
+        questions: [
+          {
+            id: 7,
+            text: "Is our revenue target backed by a capacity model (quota, ramp time, attainment and pipeline coverage)?",
+            sub: "Missing · Process",
+            score1: "Quota is the revenue target divided by headcount. The gap is filled by hope.",
+            score5: "A bottom-up model: ramped salespeople × realistic quota × historical attainment. Hiring is timed for ramp. The model reconciles to the target."
+          },
+          {
+            id: 8,
+            text: "Are territories and accounts assigned by revenue potential, balanced, and governed by clear rules of engagement?",
+            sub: "Friction · Process",
+            score1: "Assignment follows history. Salespeople hoard accounts. High-potential accounts go unworked. Ownership disputes are frequent.",
+            score5: "Assignment by revenue potential. Balanced books. Written rules for ownership, conflicts and reassignment."
+          },
+          {
+            id: 9,
+            text: "Do we have the right mix of sales, business development, marketing and account management resources to deliver our growth objectives, without relying on the founder or a few top performers?",
+            sub: "Missing · People",
+            score1: "The founder closes most large opportunities. One or two salespeople carry the number. Generalists do everything.",
+            score5: "Specialized roles sized to each target segment and source of growth. The founder is involved by design, not by necessity."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "productivity",
+    name: "Pillar 2: Productivity",
+    subtitle: "How You Win",
+    description: "Productivity tests whether the revenue team has the process, tools and coaching to win the opportunities it should be winning.",
+    components: [
+      {
+        name: "Repeatable Sales Process",
+        questions: [
+          {
+            id: 10,
+            text: "Do we have a clearly defined, consistently followed sales process that reflects how our customers make buying decisions?",
+            sub: "Friction · Process",
+            score1: "Each salesperson sells their own way. Stages describe seller activity, such as 'demo done.'",
+            score5: "Stages defined by buyer actions, each with exit criteria. Enforced in the CRM and followed by the whole team."
+          },
+          {
+            id: 11,
+            text: "Do we qualify every opportunity with one qualification framework (customer fit, buying intent, commercial value and likelihood of winning) and disqualify poor-fit opportunities early?",
+            sub: "Friction · Process",
+            score1: "No shared framework. Opportunities die late, after heavy investment.",
+            score5: "One framework (such as MEDDICC or a Go/No-Go scorecard) used in every opportunity review. Poor-fit opportunities are disqualified in early stages."
+          },
+          {
+            id: 12,
+            text: "Do we know where opportunities stall, slow down or drop out of the sales process, and why?",
+            sub: "Friction · Technology",
+            score1: "Only the overall win rate is known, or none. Sales cycle length is a guess.",
+            score5: "Stage conversion and time in stage tracked by target segment and salesperson. The bottleneck stage is identified and being fixed."
+          }
+        ]
+      },
+      {
+        name: "Sales Empowerment",
+        questions: [
+          {
+            id: 13,
+            text: "Do our salespeople spend most of their time on high-value, customer-facing activities rather than administration, internal coordination and low-value tasks?",
+            sub: "Performance · Process",
+            score1: "Selling time is not measured. Admin, manual quoting and internal firefighting fill the week.",
+            score5: "Selling time measured at 50%+ of the week. Low-value work is removed or automated."
+          },
+          {
+            id: 14,
+            text: "Do our CRM, sales enablement, marketing automation and AI tools make selling easier, improve decision-making and support the sales process?",
+            sub: "Missing · Technology",
+            score1: "Spreadsheets run the business. Tools are bought but unused. Data is entered twice.",
+            score5: "The CRM is the system of record. Tools are integrated, with 90%+ adoption. AI is used in defined workflows. RevOps owns the stack."
+          },
+          {
+            id: 15,
+            text: "Do our salespeople have the messaging, customer insights, playbooks and content needed to sell effectively and consistently?",
+            sub: "Performance · Process",
+            score1: "Salespeople build their own materials. Marketing content goes unused. No playbook.",
+            score5: "A living playbook by target segment and buyer persona. Content mapped to each stage of the sales process, with usage tracked."
+          }
+        ]
+      },
+      {
+        name: "Coaching & Skills Development",
+        questions: [
+          {
+            id: 16,
+            text: "Do our salespeople have the skills today's buyers require, including discovery, value selling, negotiation and managing complex buying decisions?",
+            sub: "Performance · People",
+            score1: "Skills are not assessed. Training is ad hoc. Win rates vary widely between salespeople.",
+            score5: "Skills assessed against a defined competency model, with a development plan per salesperson. The gap between top performers and the middle 60% is closing."
+          },
+          {
+            id: 17,
+            text: "Do sales managers consistently coach individuals and opportunities to improve performance, rather than focusing on pipeline inspection?",
+            sub: "Performance · People",
+            score1: "1:1s are status checks. Sales managers are player-coaches with no time to coach. No coaching model.",
+            score5: "Weekly 1:1s split between opportunity coaching and skill development. Sales managers are trained to coach, and coaching is tracked."
+          },
+          {
+            id: 18,
+            text: "Do we have effective approaches to hiring, onboarding, performance management and developing future sales leaders?",
+            sub: "Missing · People",
+            score1: "Hiring by gut feel. Onboarding means 'shadow someone.' Ramp time is unknown. No succession plan.",
+            score5: "A hiring profile per role. A 30/60/90-day onboarding plan with ramp time tracked. Regular performance reviews. Future sales managers identified and developing."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "predictability",
+    name: "Pillar 3: Predictability",
+    subtitle: "How You Manage",
+    description: "Predictability tests whether leaders can see, trust and steer revenue performance, including the revenue we already have.",
+    components: [
+      {
+        name: "Pipeline & Forecast Discipline",
+        questions: [
+          {
+            id: 19,
+            text: "Do we have enough qualified pipeline, with the right mix of opportunity size, stage, age and timing, to achieve our revenue targets?",
+            sub: "Friction · Process",
+            score1: "Coverage looks high but is padded. Aged opportunities stay open. Next quarter's pipeline is unknown.",
+            score5: "Coverage set from actual win rates (often 3–4×) and tracked for this quarter and next. Aged and poor-fit opportunities are removed."
+          },
+          {
+            id: 20,
+            text: "Do we forecast revenue accurately and consistently, and can we explain meaningful differences between forecast and actual results?",
+            sub: "Performance · Process",
+            score1: "Misses of 20% or more. The forecast is the sum of opinions, and misses go unexplained.",
+            score5: "Within ±5–10% of actual results by week 4 of the quarter, 4 quarters running. Forecast categories are tied to stage exit criteria, and every variance is explained."
+          },
+          {
+            id: 21,
+            text: "Do leaders trust our CRM data enough to make decisions from it?",
+            sub: "Missing · Technology",
+            score1: "Reports are rebuilt by hand in spreadsheets. Leaders argue about whose numbers are right.",
+            score5: "Required fields are enforced. RevOps owns data quality. Leadership and board reports run directly from the CRM."
+          }
+        ]
+      },
+      {
+        name: "Role Clarity & Accountability",
+        questions: [
+          {
+            id: 22,
+            text: "Are responsibilities, decision rights and performance expectations clearly defined across marketing, sales, account management and customer success?",
+            sub: "Missing · People",
+            score1: "Job descriptions only. Roles overlap or leave gaps. Accountability means missing the number, then pressure.",
+            score5: "A role charter for each role: outcomes, decision rights, 3–5 leading behaviours and metrics. Managers coach the behaviours, not just the number."
+          },
+          {
+            id: 23,
+            text: "Do our compensation plans reward the behaviours our strategy needs (ICP fit, margin, multi-year contracts and retention)?",
+            sub: "Friction · Process",
+            score1: "Plans pay on bookings regardless of ICP fit or margin. Exceptions and disputes are frequent. Account management and customer success are not paid on retention.",
+            score5: "Simple plans (2–3 measures) tied to strategic priorities and modelled before launch. Few exceptions."
+          },
+          {
+            id: 24,
+            text: "Does leadership run a consistent operating rhythm (weekly pipeline review, monthly business review, quarterly planning) built on agreed metrics?",
+            sub: "Performance · Process",
+            score1: "Meetings vary by leader and turn into status updates. The same issues return every quarter.",
+            score5: "A fixed cadence with set agendas and one shared dashboard. Each meeting ends with decisions and owners."
+          }
+        ]
+      },
+      {
+        name: "Account Rigor & Strategy",
+        questions: [
+          {
+            id: 25,
+            text: "Are large or complex opportunities run with a documented strategy (mutual action plan, opportunity reviews and executive sponsorship)?",
+            sub: "Friction · Process",
+            score1: "Large opportunities slip quarter after quarter. Close dates are set by the salesperson, not the buyer.",
+            score5: "Opportunities above a set value get a structured review and a mutual action plan agreed with the buyer. Executives are engaged by design."
+          },
+          {
+            id: 26,
+            text: "Are our most important customers managed through documented account plans, executive relationships and coordinated growth strategies?",
+            sub: "Growth · Process",
+            score1: "Relationships rest on one contact. Plans live in people's heads. Expansion happens by accident.",
+            score5: "Account plans for the top 20 customers: relationship map, whitespace and the next 2 quarters of growth plays. An executive sponsor for each. Net revenue retention is targeted."
+          },
+          {
+            id: 27,
+            text: "Do we have enough visibility into customer health, renewal risk, revenue concentration and relationships that could put existing revenue at risk?",
+            sub: "Missing · Process",
+            score1: "Churn is a surprise. No customer health score. The top 5 customers exceed 30% of revenue with no mitigation plan.",
+            score5: "A health score for every customer, reviewed monthly. Renewals forecast 2+ quarters ahead. Concentration tracked, with a plan for any customer above ~10% of revenue."
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const SEAMS = {
+  name: "The Seams",
+  description: "RBD holds that growth breaks down in the seams between functions. These three questions test the handoffs and shared ownership that no single pillar owns.",
+  questions: [
+    {
+      id: 28,
+      text: "Do marketing and sales share definitions (MQL, SQL, opportunity), handoff service levels and one pipeline target?",
+      sub: "Friction · Process",
+      score1: "'The leads are bad' vs 'sales doesn't follow up.' New leads sit untouched for days.",
+      score5: "Written definitions and a service-level agreement on follow-up time. Marketing is measured on pipeline and revenue, not lead volume."
+    },
+    {
+      id: 29,
+      text: "Is the handoff from sales to customer success structured, and do win/loss and churn insights feed back into our ICP, messaging and product?",
+      sub: "Friction · Process",
+      score1: "Customers re-explain their goals after signing. Win/loss and churn reasons are never reviewed.",
+      score5: "A formal handoff that documents customer goals. A quarterly win/loss and churn review that changes the ICP, messaging or product roadmap."
+    },
+    {
+      id: 30,
+      text: "Does the leadership team agree on the revenue plan, its top three constraints and who owns each part of growth?",
+      sub: "Missing · People",
+      score1: "Each leader names different problems. Revenue is seen as 'sales' number.'",
+      score5: "The CEO and every revenue leader name the same top three constraints and share revenue goals."
+    }
+  ]
+};
+
+// answers[qId] = 1-5 score or null
+const answers = {};
+
+function renderQuestions() {
+  const container = document.getElementById('questions');
+  let html = '';
+
+  PILLARS.forEach(pillar => {
+    html += `<div class="pillar-block">
+      <div class="pillar-header">
+        <h2>${pillar.name}: ${pillar.subtitle}</h2>
+        <p>${pillar.description}</p>
+      </div>`;
+
+    pillar.components.forEach(comp => {
+      html += `<div class="component-block">
+        <div class="component-header"><h3>${comp.name}</h3></div>`;
+
+      comp.questions.forEach(q => {
+        html += buildQuestionCard(q);
+      });
+
+      html += '</div>';
+    });
+
+    html += '</div>';
+  });
+
+  // Seams
+  html += `<div class="seams-block">
+    <div class="seams-header">
+      <h2>${SEAMS.name}</h2>
+      <p>${SEAMS.description}</p>
+    </div>`;
+  SEAMS.questions.forEach(q => {
+    html += buildSeamsCard(q);
+  });
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function buildQuestionCard(q) {
+  return `<div class="question-card" id="qcard-${q.id}">
+    <div class="question-header">
+      <div class="q-number">${q.id}</div>
+      <div>
+        <p class="question-title">${q.text}</p>
+        <p class="question-sub">${q.sub}</p>
+      </div>
+    </div>
+    <div class="options-5">
+      ${buildOptions(q)}
+    </div>
+    <div class="q-desc" id="qdesc-${q.id}" style="margin-top:12px; padding:12px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; display:none; font-size:13px; color:#475569; line-height:1.6;">
+      <strong style="color:#334155;">Score 1 looks like:</strong> ${q.score1}<br><br>
+      <strong style="color:#334155;">Score 5 looks like:</strong> ${q.score5}
+    </div>
+  </div>`;
+}
+
+function buildSeamsCard(q) {
+  return `<div class="seams-question" id="qcard-${q.id}">
+    <div class="question-header">
+      <div class="q-number" style="background:#334155;">${q.id}</div>
+      <div>
+        <p class="question-title">${q.text}</p>
+        <p class="question-sub">${q.sub}</p>
+      </div>
+    </div>
+    <div class="options-5">
+      ${buildOptions(q)}
+    </div>
+    <div class="q-desc" id="qdesc-${q.id}" style="margin-top:12px; padding:12px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; display:none; font-size:13px; color:#475569; line-height:1.6;">
+      <strong style="color:#334155;">Score 1 looks like:</strong> ${q.score1}<br><br>
+      <strong style="color:#334155;">Score 5 looks like:</strong> ${q.score5}
+    </div>
+  </div>`;
+}
+
+function buildOptions(q) {
+  const labels = [
+    { val: 1, label: "1 - Absent or ad hoc" },
+    { val: 2, label: "2 - Partially established" },
+    { val: 3, label: "3 - Defined but inconsistent" },
+    { val: 4, label: "4 - Established and effective" },
+    { val: 5, label: "5 - Optimized and improving" }
+  ];
+  return labels.map(o => {
+    const sel = answers[q.id] === o.val ? ' selected' : '';
+    return `<button class="option-btn${sel}" onclick="selectAnswer(${q.id}, ${o.val}, this)">${o.label}</button>`;
+  }).join('');
+}
+
+function selectAnswer(qId, val, btn) {
+  answers[qId] = val;
+  // Update button states
+  const card = document.getElementById('qcard-' + qId);
+  card.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  // Show description if unlocked
+  updateDescVisibility(qId);
+  updateScore();
+}
+
+function updateDescVisibility(qId) {
+  const desc = document.getElementById('qdesc-' + qId);
+  if (desc) {
+    desc.style.display = (unlocked && answers[qId]) ? 'block' : 'none';
+  }
+}
+
+function getAllQuestions() {
+  const all = [];
+  PILLARS.forEach(p => p.components.forEach(c => c.questions.forEach(q => all.push({...q, pillar: p.id}))));
+  SEAMS.questions.forEach(q => all.push({...q, pillar: 'seams'}));
+  return all;
+}
+
+function updateScore() {
+  const allQ = getAllQuestions();
+  const answered = allQ.filter(q => answers[q.id] != null);
+  const total = answered.length;
+
+  document.getElementById('completion').textContent = `${total} of 30 questions answered`;
+
+  if (total === 0) {
+    document.getElementById('scoreDisplay').textContent = '-';
+    document.getElementById('progressFill').style.width = '0%';
+    ['pPlanning','pProductivity','pPredictability','pSeams'].forEach(id => {
+      document.getElementById(id).textContent = '-';
+    });
+    setRecommendation(null);
+    return;
+  }
+
+  // Pillar scores
+  function pillarAvg(pillarId) {
+    let qs, questions;
+    if (pillarId === 'seams') {
+      questions = SEAMS.questions;
+    } else {
+      const p = PILLARS.find(x => x.id === pillarId);
+      questions = p ? p.components.flatMap(c => c.questions) : [];
+    }
+    const ans = questions.filter(q => answers[q.id] != null).map(q => answers[q.id]);
+    return ans.length ? ans.reduce((a,b) => a+b, 0) / ans.length : null;
+  }
+
+  const pScores = {
+    planning: pillarAvg('planning'),
+    productivity: pillarAvg('productivity'),
+    predictability: pillarAvg('predictability'),
+    seams: pillarAvg('seams')
+  };
+
+  ['planning','productivity','predictability','seams'].forEach(k => {
+    const el = document.getElementById('p' + k.charAt(0).toUpperCase() + k.slice(1));
+    el.textContent = pScores[k] != null ? pScores[k].toFixed(1) + ' / 5' : '-';
+  });
+
+  // RBD Index: average of 4 pillar scores × 20
+  const validPillarScores = Object.values(pScores).filter(x => x != null);
+  if (validPillarScores.length === 0) {
+    document.getElementById('scoreDisplay').textContent = '-';
+    setRecommendation(null);
+    return;
+  }
+
+  const avg = validPillarScores.reduce((a,b) => a+b,0) / validPillarScores.length;
+  const index = Math.round(avg * 20);
+
+  document.getElementById('scoreDisplay').textContent = index;
+  document.getElementById('progressFill').style.width = index + '%';
+  setRecommendation(index);
+}
+
+function setRecommendation(index) {
+  const box = document.getElementById('recommendationBox');
+  const title = document.getElementById('recTitle');
+  const summary = document.getElementById('recSummary');
+
+  box.className = 'recommendation';
+
+  if (index === null) {
+    box.classList.add('band-risk');
+    title.textContent = 'Complete the diagnostic';
+    summary.textContent = 'Answer all 30 questions to see your RBD Index and recommendation.';
+    return;
+  }
+
+  if (index >= 85) {
+    box.classList.add('band-by-design');
+    title.textContent = '✦ By Design';
+    summary.textContent = 'Your revenue system is repeatable and predictable. Focus on optimization and expansion.';
+  } else if (index >= 70) {
+    box.classList.add('band-scalable');
+    title.textContent = '▲ Scalable';
+    summary.textContent = 'A working revenue engine with specific leaks. Targeted fixes will give fast returns.';
+  } else if (index >= 50) {
+    box.classList.add('band-effort');
+    title.textContent = '◎ Built on Effort';
+    summary.textContent = 'Elements exist but are not connected. Big gains from integrating process and accountability.';
+  } else {
+    box.classList.add('band-risk');
+    title.textContent = '⚠ Revenue at Risk';
+    summary.textContent = 'Fix the foundation before adding spend or headcount. Start with the lowest-scoring pillar.';
+  }
+}
+
+document.getElementById('resetButton').addEventListener('click', () => {
+  if (!confirm('Reset all answers?')) return;
+  getAllQuestions().forEach(q => { answers[q.id] = null; });
+  renderQuestions();
+  updateScore();
+  document.getElementById('companyName').value = '';
+  document.getElementById('respondentName').value = '';
+});
+
+document.getElementById('pdfButton').addEventListener('click', () => window.print());
+
+
+// Email
+document.getElementById('emailToggleBtn').addEventListener('click', () => {
+  const panel = document.getElementById('emailPanel');
+  panel.classList.toggle('open');
+});
+document.getElementById('emailSendBtn').addEventListener('click', () => {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email) { alert('Please enter an email address.'); return; }
+  const company = document.getElementById('companyName').value.trim() || 'Not specified';
+  const respondent = document.getElementById('respondentName').value.trim() || 'Not specified';
+  const scoreEl = document.getElementById('scoreDisplay').textContent;
+  const recTitle = document.getElementById('recTitle').textContent;
+  const pPlanning = document.getElementById('pPlanning').textContent;
+  const pProductivity = document.getElementById('pProductivity').textContent;
+  const pPredictability = document.getElementById('pPredictability').textContent;
+  const pSeams = document.getElementById('pSeams').textContent;
+  const answered = document.getElementById('completion').textContent;
+
+  const subject = encodeURIComponent('HighFive Advisory | Revenue by Design Diagnostic Results - ' + company);
+  const body = encodeURIComponent(
+    'REVENUE BY DESIGN DIAGNOSTIC RESULTS\n' +
+    '=========================================\n\n' +
+    'Company: ' + company + '\n' +
+    'Respondent: ' + respondent + '\n\n' +
+    'RBD INDEX: ' + scoreEl + ' / 100\n' +
+    'Result Band: ' + recTitle + '\n' +
+    answered + '\n\n' +
+    'PILLAR SCORES\n' +
+    '--------------\n' +
+    'Planning: ' + pPlanning + '\n' +
+    'Productivity: ' + pProductivity + '\n' +
+    'Predictability: ' + pPredictability + '\n' +
+    'The Seams: ' + pSeams + '\n\n' +
+    'SCORE BANDS\n' +
+    '------------\n' +
+    '85-100: By Design - Repeatable and predictable. Focus on optimization and expansion.\n' +
+    '70-84: Scalable - A working revenue engine with specific leaks. Targeted fixes give fast returns.\n' +
+    '50-69: Built on Effort - Elements exist but are not connected. Big gains from integrating process and accountability.\n' +
+    'Under 50: Revenue at Risk - Fix the foundation before adding spend or headcount. Start with the lowest-scoring pillar.\n\n' +
+    'Generated by HighFive Advisory | Revenue by Design Diagnostic\n' +
+    'highfiveadvisory.com'
+  );
+  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+});
+
+// Init
+renderQuestions();
+updateScore();
+</script>
+</body>
+</html>
+</body></html>
